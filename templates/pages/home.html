@@ -1,14 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+        p {
+            background-color: rgb(179, 235, 96);
+            color: rgb(0, 0, 0);
+        }
+        h1 {
+            color: blue;
+        }
+        <script>
+            console.log("Hello from the home page!");
+        </script>
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
     <div>
-        <h1>First Home Page on Django</h1>
+        <h1>Welcome to my blog!</h1>
+        <img src="https://picsum.photos/600/300" alt="Home Image" class="img-fluid mb-4" >
+        <img src="{% static 'images/home_image.jpg' %}" alt="Static Home Image" class="img-fluid mb-4" >
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, blanditiis repudiandae ducimus voluptate illo nihil voluptatum assumenda dignissimos minima dolorem sint nemo, quo accusamus. Tempora corrupti debitis esse distinctio sit.</p>
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+

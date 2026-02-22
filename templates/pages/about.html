@@ -1,15 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Page</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    About 
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <style>
+        p {
+            background-color: rgb(179, 235, 96);
+            color: rgb(0, 0, 0);
+        }
+        h1 {
+            color: blue;
+        }
+        <script>
+            console.log("Hello from the about page!");
+        </script>
+    </style>
+{% endblock %}
+
+{% block content %}
+
     <div>
-        <h1>About me</h1>
-        <h3>Steph Truitt</h3>
-        <p>I'm a student trying to understand Django and web development.</p>
+        <h1 style="background-color: aquamarine; letter-spacing: 5px;">About Us</h1>
+        <div> 
+            <img src="https://picsum.photos/600/300" alt="About Image" class="img-fluid mb-4">
+            <img src="{% static 'images/external-img.jpg' %}" alt="Internal Image" class="img-fluid mb-4">
+        </div>
+        <p class="custom-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, blanditiis repudiandae ducimus voluptate illo nihil voluptatum assumenda dignissimos minima dolorem sint nemo, quo accusamus. Tempora corrupti debitis esse distinctio sit.</p>
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/about.js' %}"></script>
+{% endblock %}
