@@ -2,16 +2,20 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Login
+Update Post
 {% endblock %}
 
 {% block content %}
+
 <div class="container">
-    <h2>Login</h2>
+    <h2>Update Post</h2>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Login" class="btn btn-primary">
+        <input type="submit" value="Update Post" class="btn btn-primary">
     </form>
+</div>
+
 
 {% endblock %}
+        

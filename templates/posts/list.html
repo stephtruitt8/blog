@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+List of Posts
+{% endblock %}
+
+{% block content %}
+    <h2>List of Posts</h2>
+    <ul>
+        {% for post in posts %}
+            <li class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+        
