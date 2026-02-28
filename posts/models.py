@@ -7,6 +7,7 @@ from django.urls import reverse
 class Status(models.Model):
     class Meta:
         verbose_name_plural = 'Status'
+        
     name = models.CharField(max_length=128, unique=True)
     description = models.CharField(max_length=256, help_text='A description of the status')
 
@@ -22,6 +23,10 @@ class Post(models.Model):
         get_user_model(),
         on_delete=models.CASCADE, 
         related_name='posts'
+    )
+    status = models.ForeignKey(
+        Status,
+        on_delete=models.DO_NOTHING,
     )
     
 

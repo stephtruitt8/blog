@@ -12,12 +12,27 @@ Details of Post
     <h2>{{ object.title }}</h2>
     <h4>{{ object.subtitle }}</h4>
     <p>{{ object.body }}</p>
-    <p>Created on: {{ object.created_on }}</p>
-    <p>Author: {{ object.author }}</p>
+    <br>
+    <hr>
+    <span><strong>Created on:{{ object.created_on }}</strong></span>
+    <br>
+    <span><strong></strong>Author: {{ object.author }}</strong></span>
+    <span><strong></strong>Status: {{ object.status }}</strong></span>
+    <br>
 
     {% if user.is_authenticated and user == object.author %}
-        <a href="{% url 'post_update' object.pk %}" class="btn btn-secondary">Edit</a>
-        <a href="{% url 'post_delete' object.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'post_edit' object.pk %}" class="btn btn-secondary" style="">Edit</a>
+        <a href="{% url 'post_delete' object.pk %}" class="btn btn-danger" style="">Delete</a>
+    
+    
+    <span class="post-status">
+        {% if object.status.name == 'Draft' %}
+            <span class="badge bg-secondary">{{ object.status.name }}</span>
+        {% elif object.status.name == 'Published' %}
+            <span class="badge bg-success">{{ object.status.name }}</span>
+        {% else %}
+            <span class="badge bg-info">{{ object.status.name }}</span>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

@@ -1,38 +1,168 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}
-    Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <style>
-        p {
-            background-color: rgb(179, 235, 96);
-            color: rgb(0, 0, 0);
-        }
-        h1 {
-            color: blue;
-        }
-        <script>
-            console.log("Hello from the home page!");
-        </script>
-    </style>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <style>
+    /* Cozy artsy Home styling (scoped to Home page) */
+    .home-wrap{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .home-hero{
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: radial-gradient(900px circle at 10% 0%, rgba(25,135,84,0.14), transparent 45%),
+                  radial-gradient(800px circle at 90% 30%, rgba(13,110,253,0.12), transparent 40%),
+                  #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .home-kicker{
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
+      margin-bottom: 0.5rem;
+    }
+
+    .home-title{
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      line-height: 1.05;
+      margin: 0 0 0.75rem;
+    }
+
+    .home-lead{
+      color: rgba(0,0,0,0.72);
+      line-height: 1.75;
+      margin: 0;
+      max-width: 62ch;
+    }
+
+    .home-hero-img{
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .home-actions{
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .home-card{
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .home-mini{
+      color: rgba(0,0,0,0.72);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .home-divider{
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+      margin: 1.25rem 0;
+    }
+
+    .home-pill{
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .45rem .7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.10);
+      color: rgba(0,0,0,0.72);
+      background: rgba(255,255,255,0.85);
+    }
+  </style>
 {% endblock %}
 
-
 {% block content %}
+<div class="home-wrap">
 
-    <div>
-        <h1>Welcome to my blog!</h1>
-        <img src="https://picsum.photos/600/300" alt="Home Image" class="img-fluid mb-4" >
-        <img src="{% static 'images/home_image.jpg' %}" alt="Static Home Image" class="img-fluid mb-4" >
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, blanditiis repudiandae ducimus voluptate illo nihil voluptatum assumenda dignissimos minima dolorem sint nemo, quo accusamus. Tempora corrupti debitis esse distinctio sit.</p>
+  <!-- Hero -->
+  <section class="home-hero mb-4">
+    <img
+      src="https://picsum.photos/1200/600?random=12"
+      alt="Studio inspiration"
+      class="home-hero-img"
+    >
+
+    <div class="p-4 p-md-5">
+      <p class="home-kicker">BartoArts • Studio Blog</p>
+      <h1 class="home-title handwriting-font">Welcome to the Studio</h1>
+      <p class="home-lead">
+        A cozy space for sketches, finished pieces, and the behind-the-scenes journey.
+        Come hang out, browse the gallery, or drop a new post when inspiration hits.
+      </p>
+
+      <div class="home-actions">
+        <a class="btn btn-success" href="{% url 'post_list' %}">Explore Posts</a>
+        <a class="btn btn-outline-dark" href="{% url 'post_new' %}">Create New Post</a>
+        <a class="btn btn-outline-secondary" href="{% url 'post_list' %}">View Gallery</a>
+      </div>
+
+      <div class="home-divider"></div>
+
+      <div class="d-flex flex-wrap gap-2">
+        <span class="home-pill">Sketchbook vibes</span>
+        <span class="home-pill">Process notes</span>
+        <span class="home-pill">Finished work</span>
+      </div>
     </div>
+  </section>
+
+  <!-- Quick sections -->
+  <section class="row g-4">
+    <div class="col-12 col-md-6">
+      <div class="home-card p-4 h-100">
+        <h2 class="handwriting-font mb-2">What’s inside</h2>
+        <p class="home-mini mb-3">
+          Posts that range from quick doodles to full breakdowns. Expect imperfect progress,
+          little wins, and honest creative notes.
+        </p>
+        <ul class="mb-0">
+          <li>New pieces & updates</li>
+          <li>Process + tools</li>
+          <li>Mini lessons learned</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="home-card p-4 h-100">
+        <h2 class="handwriting-font mb-2">Start here</h2>
+        <p class="home-mini mb-3">
+          If you’re new, the gallery is the best place to browse. If you’re creating,
+          post something small — consistency beats perfection.
+        </p>
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-dark" href="{% url 'post_list' %}">Browse Gallery</a>
+          <a class="btn btn-outline-dark" href="{% url 'post_new' %}">Add a Post</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/home.js' %}"></script>
+  <script src="{% static 'js/home.js' %}"></script>
+  <script>
+    console.log("Hello from the home page!");
+  </script>
 {% endblock %}
-

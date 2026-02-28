@@ -5,7 +5,7 @@ List of Posts
 {% endblock %}
 
 {% block content %}
-    <h2>List of Posts</h2>
+    <h2 class="text-center">List of Posts</h2>
     <ul>
         {% for post in posts %}
             <li class="card mb-3">
@@ -13,6 +13,15 @@ List of Posts
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.content|truncatechars:100 }}</p>
                     <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+                    <span class="post-status">
+                        {% if post.status.name == 'Draft' %}
+                            <span class="badge bg-secondary">{{ post.status.name }}</span>
+                        {% elif post.status.name == 'Published' %}
+                            <span class="badge bg-success">{{ post.status.name }}</span>
+                        {% else %}
+                            <span class="badge bg-info">{{ post.status.name }}</span>
+                        {% endif %}
+                    </span>
                 </div>
             </li>
         {% endfor %}

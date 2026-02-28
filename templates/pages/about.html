@@ -2,37 +2,160 @@
 {% load static %}
 
 {% block title %}
-    About 
+About
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/about.css' %}">
-    <style>
-        p {
-            background-color: rgb(179, 235, 96);
-            color: rgb(0, 0, 0);
-        }
-        h1 {
-            color: blue;
-        }
-        <script>
-            console.log("Hello from the about page!");
-        </script>
-    </style>
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+  <style>
+    /* Cozy artsy page styling (scoped to About so it won't mess other pages) */
+    .about-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .about-hero {
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: radial-gradient(900px circle at 10% 0%, rgba(25,135,84,0.14), transparent 45%),
+                  radial-gradient(800px circle at 90% 30%, rgba(255,193,7,0.14), transparent 40%),
+                  #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .about-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
+      margin-bottom: 0.5rem;
+    }
+
+    .about-title {
+      font-size: clamp(2rem, 3.2vw, 2.7rem);
+      line-height: 1.05;
+      margin: 0 0 0.75rem;
+    }
+
+    .about-lead {
+      color: rgba(0,0,0,0.72);
+      line-height: 1.75;
+      margin: 0;
+      max-width: 62ch;
+    }
+
+    .about-panel {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+    }
+
+    .about-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .about-mini {
+      color: rgba(0,0,0,0.70);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .about-badges .badge {
+      border: 1px solid rgba(0,0,0,0.10);
+      background: #fff !important;
+      color: rgba(0,0,0,0.75) !important;
+      font-weight: 500;
+      padding: .55rem .75rem;
+      border-radius: 999px;
+    }
+
+    .about-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+      margin: 1.25rem 0;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
+<div class="about-wrap">
 
-    <div>
-        <h1 style="background-color: aquamarine; letter-spacing: 5px;">About Us</h1>
-        <div> 
-            <img src="https://picsum.photos/600/300" alt="About Image" class="img-fluid mb-4">
-            <img src="{% static 'images/external-img.jpg' %}" alt="Internal Image" class="img-fluid mb-4">
-        </div>
-        <p class="custom-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, blanditiis repudiandae ducimus voluptate illo nihil voluptatum assumenda dignissimos minima dolorem sint nemo, quo accusamus. Tempora corrupti debitis esse distinctio sit.</p>
+  <!-- Hero / Intro -->
+  <section class="about-hero p-4 p-md-5 mb-4">
+    <p class="about-kicker">BartoArts • Studio Notes</p>
+    <h1 class="about-title handwriting-font">About Us</h1>
+    <p class="about-lead">
+      We’re a cozy little corner built for creators — a place for sketches, experiments, and the kind of progress
+      that happens one page at a time. Whether you’re here for inspiration or tools, you’re welcome in the studio.
+    </p>
+
+    <div class="about-divider"></div>
+
+    <div class="about-badges d-flex flex-wrap gap-2">
+      <span class="badge">Process over perfection</span>
+      <span class="badge">Cozy + creative</span>
+      <span class="badge">Made for makers</span>
     </div>
+  </section>
+
+  <!-- Main content row -->
+  <section class="row g-4 align-items-stretch">
+    <!-- Images -->
+    <div class="col-12 col-lg-6">
+      <div class="d-grid gap-3">
+        <img
+          src="{% static 'images/external-img.jpg' %}"
+          alt="Studio image"
+          class="about-img"
+          onerror="this.src='https://picsum.photos/900/600?random=7';"
+        >
+
+        <img
+          src="https://picsum.photos/900/600?random=5"
+          alt="Inspiration image"
+          class="about-img"
+        >
+      </div>
+    </div>
+
+    <!-- Text panels -->
+    <div class="col-12 col-lg-6">
+      <div class="about-panel p-4 p-md-4 h-100">
+        <h2 class="handwriting-font mb-2">What we’re building</h2>
+        <p class="about-mini mb-3">
+          A blog + gallery space that feels like a sketchbook you can share. Some posts are finished pieces,
+          some are rough drafts — all of them are part of the journey.
+        </p>
+
+        <h3 class="handwriting-font mb-2">What you’ll find here</h3>
+        <ul class="mb-4">
+          <li>Art studies, sketches, and finished work</li>
+          <li>Behind-the-scenes process notes</li>
+          <li>Little lessons learned (the fun and the messy parts)</li>
+        </ul>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-success" href="{% url 'post_list' %}">Explore Posts</a>
+          <a class="btn btn-outline-dark" href="{% url 'post_new' %}">Write a New Post</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/about.js' %}"></script>
+  <script src="{% static 'js/about.js' %}"></script>
+  <script>
+    console.log("Hello from the about page!");
+  </script>
 {% endblock %}
+
+
+

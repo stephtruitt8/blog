@@ -8,11 +8,11 @@ Update Post
 {% block content %}
 
 <div class="container">
-    <h2>Update Post</h2>
+    <h2 class="text-center">Update Post</h2>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Update Post" class="btn btn-primary">
+        <input type="submit" value="Update" class="btn btn-primary">
     </form>
 </div>
 

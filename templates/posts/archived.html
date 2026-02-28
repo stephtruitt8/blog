@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Archived Posts
+{% endblock %}}
+
+{% block content %}
+    <h2 class="text-center">Archived Posts</h2>
+    <ul class="list-group">
+        {% for post in object_list %}
+            <li class="list-group-item">
+                <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                <span class="post-status">
+                    {% if post.status.name == 'Draft' %}
+                        <span class="badge bg-secondary">{{ post.status.name }}</span>
+                    {% elif post.status.name == 'Published' %}
+                        <span class="badge bg-success">{{ post.status.name }}</span>
+                    {% else %}
+                        <span class="badge bg-info">{{ post.status.name }}</span>
+                    {% endif %}
+                </span>
+
+            </li>
+        {% empty %}
+            <li class="list-group-item">No archived posts available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
