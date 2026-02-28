@@ -10,6 +10,10 @@ from django.views.generic import (
 
 from .models import Post, Status
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin
+) 
 
 # Create your views here.
 
@@ -45,7 +49,7 @@ class PostListView(ListView):
 #         return context
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = 'posts/new.html'
     model = Post
     fields = ['title', 'subtitle', 'body', 'status',]
@@ -54,7 +58,7 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     template_name = 'posts/detail.html'
     model = Post
     context_object_name = 'post'
@@ -66,17 +70,37 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'posts/edit.html'
     model = Post
     fields = ['title', 'subtitle', 'body', 'status',]
 
-class PostDeleteView(DeleteView):
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            if self.request.user == post.author:
+                return True
+            else:
+                return False
+        else:
+            return False     
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'posts/delete.html'
     model = Post
-    success_url = '/posts/list/'
+    success_url = reverse_lazy('post_list')
 
-class PostDraftListView(ListView):
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            if self.request.user == post.author:
+                return True
+            else:
+                return False
+        else:
+            return False        
+
+class PostDraftListView(LoginRequiredMixin, ListView):
     template_name = 'posts/drafts.html'
     model = Post
     context_object_name = 'drafts'
@@ -85,7 +109,7 @@ class PostDraftListView(ListView):
         draft_status = Status.objects.get(name='draft')
         return Post.objects.filter(status=draft_status).order_by('-created_on').reverse()
 
-class PostArchivedListView(ListView):
+class PostArchivedListView(LoginRequiredMixin, ListView):
     template_name = 'posts/archived.html'
     context_object_name = 'archived_posts'
 

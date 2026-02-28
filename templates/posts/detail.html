@@ -19,11 +19,14 @@ Details of Post
     <span><strong></strong>Author: {{ object.author }}</strong></span>
     <span><strong></strong>Status: {{ object.status }}</strong></span>
     <br>
-
+</div>
+    <div style="display: flex; flex-direction: column;">
     {% if user.is_authenticated and user == object.author %}
         <a href="{% url 'post_edit' object.pk %}" class="btn btn-secondary" style="">Edit</a>
         <a href="{% url 'post_delete' object.pk %}" class="btn btn-danger" style="">Delete</a>
-    
+        
+
+
     
     <span class="post-status">
         {% if object.status.name == 'Draft' %}
@@ -34,6 +37,6 @@ Details of Post
             <span class="badge bg-info">{{ object.status.name }}</span>
         {% endif %}
     {% endif %}
-
+</div>
 {% endblock %}
         
